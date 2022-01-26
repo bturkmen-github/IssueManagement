@@ -32,7 +32,7 @@ public class User extends BaseEntity {
 	private Long id;
 	
 	@Column(name = "uname",length = 100,unique = true)
-	private String username;
+	private String userName;
 	
 	@Column(name = "pwd",length = 200)
 	private String password;
