@@ -3,12 +3,14 @@ package com.bturkmen.IssueManagement.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.bturkmen.IssueManagement.dto.IssueDto;
 import com.bturkmen.IssueManagement.entity.Issue;
+import com.bturkmen.IssueManagement.util.TPage;
 
 public interface IIssueService {
 	
-	Issue save(Issue issue);
-	Issue getById(Long id);
-	Page<Issue> getAllPageable(Pageable pageable);
-	Boolean delete(Issue issue);
+	IssueDto save(IssueDto issue);
+	IssueDto getById(Long id);
+	TPage<IssueDto> getAllPageable(Pageable pageable);
+	Boolean delete(IssueDto issue);
 }
