@@ -2,10 +2,12 @@ package com.bturkmen.IssueManagement.service.impl;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.bturkmen.IssueManagement.dto.ProjectDto;
 import com.bturkmen.IssueManagement.entity.Project;
 import com.bturkmen.IssueManagement.repository.ProjectRepository;
 import com.bturkmen.IssueManagement.service.IProjectService;
@@ -14,24 +16,30 @@ import com.bturkmen.IssueManagement.service.IProjectService;
 public class ProjectService implements IProjectService {
 	
 	private final ProjectRepository projectRepository;
+	private final ModelMapper modelMapper;
 	
-	public ProjectService(ProjectRepository projectRepository) {
+	public ProjectService(ProjectRepository projectRepository,ModelMapper modelMapper) {
 		this.projectRepository=projectRepository;
+		this.modelMapper=modelMapper;
 	}
 
 	@Override
-	public Project save(Project project) {
+	public ProjectDto save(ProjectDto project) {
 
 		if(project.getProjectCode()==null) {
 			throw new IllegalArgumentException("Project Code cannot be Null");
 		}
 		
-		return projectRepository.save(project);
+		Project projectDb = modelMapper.map(project, Project.class);
+		projectDb = projectRepository.save(projectDb);
+		
+		return modelMapper.map(projectDb, ProjectDto.class);
 	}
 
 	@Override
-	public Project getById(Long id) {
-		return projectRepository.getById(id);
+	public ProjectDto getById(Long id) {
+		Project p = projectRepository.getById(id);	
+		return modelMapper.map(p, ProjectDto.class);
 	}
 
 	@Override
@@ -40,8 +48,9 @@ public class ProjectService implements IProjectService {
 	}
 
 	@Override
-	public Boolean delete(Project project) {
-		projectRepository.delete(project);
+	public Boolean delete(ProjectDto project) {
+		Project p = modelMapper.map(project, Project.class);
+		projectRepository.delete(p);
 		return true;
 	}
 
