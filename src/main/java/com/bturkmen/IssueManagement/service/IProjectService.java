@@ -14,6 +14,6 @@ public interface IProjectService {
 	Page<Project> getAllPageable(Pageable pageable);
 	Boolean delete(ProjectDto project);
 	
-	List<Project> getByProjectCode(String projectCode);
-	List<Project> getByProjectCodeContains(String projectCode);
+	ProjectDto getByProjectCode(String projectCode);
+	List<ProjectDto> getByProjectCodeContains(String projectCode);
 }

@@ -13,7 +13,7 @@ import com.bturkmen.IssueManagement.entity.Project;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
-	List<Project> getByProjectCode(String projectCode);
+	Project getByProjectCode(String projectCode);
 	
 	List<Project> getAllByProjectCodeAndIdNotNull(String projectCode);
 	

@@ -26,9 +26,10 @@ public class ProjectService implements IProjectService {
 	@Override
 	public ProjectDto save(ProjectDto project) {
 
-		if(project.getProjectCode()==null) {
-			throw new IllegalArgumentException("Project Code cannot be Null");
-		}
+		Project projectCheck = projectRepository.getByProjectCode(project.getProjectCode());
+		
+		if(projectCheck!=null)
+			throw new IllegalArgumentException("Project Code Already Exist");
 		
 		Project projectDb = modelMapper.map(project, Project.class);
 		projectDb = projectRepository.save(projectDb);
@@ -55,13 +56,14 @@ public class ProjectService implements IProjectService {
 	}
 
 	@Override
-	public List<Project> getByProjectCode(String projectCode) {
-		return projectRepository.getByProjectCode(projectCode);
+	public ProjectDto getByProjectCode(String projectCode) {		
+		Project p = projectRepository.getByProjectCode(projectCode);		
+		return modelMapper.map(p, ProjectDto.class);
 	}
 
 	@Override
-	public List<Project> getByProjectCodeContains(String projectCode) {
-		return projectRepository.getByProjectCodeContains(projectCode);
+	public List<ProjectDto> getByProjectCodeContains(String projectCode) {
+		return null;
 	}
 
 }
