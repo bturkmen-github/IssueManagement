@@ -13,6 +13,7 @@ public interface IProjectService {
 	ProjectDto getById(Long id);
 	Page<Project> getAllPageable(Pageable pageable);
 	Boolean delete(ProjectDto project);
+	ProjectDto update(Long id,ProjectDto project);
 	
 	ProjectDto getByProjectCode(String projectCode);
 	List<ProjectDto> getByProjectCodeContains(String projectCode);
