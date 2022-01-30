@@ -2,6 +2,8 @@ package com.bturkmen.IssueManagement.dto;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import com.bturkmen.IssueManagement.entity.IssueStatus;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +18,7 @@ public class IssueDto {
 	private Long id;	
 	private String description;
 	private String details;
+	@NotNull
 	private Date date;
 	private IssueStatus issueStatus;
 	private UserDto assignee;

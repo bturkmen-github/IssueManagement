@@ -8,7 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bturkmen.IssueManagement.dto.IssueDto;
+import com.bturkmen.IssueManagement.dto.ProjectDto;
 import com.bturkmen.IssueManagement.entity.Issue;
+import com.bturkmen.IssueManagement.entity.Project;
 import com.bturkmen.IssueManagement.repository.IssueRepository;
 import com.bturkmen.IssueManagement.service.IIssueService;
 import com.bturkmen.IssueManagement.util.TPage;
@@ -25,11 +27,7 @@ public class IssueService implements IIssueService {
 	}
 
 	@Override
-	public IssueDto save(IssueDto issueDto) {
-		
-		if(issueDto.getDate()==null)
-			throw new IllegalArgumentException("Issue Date cannot be null");
-		
+	public IssueDto save(IssueDto issueDto) {				
 		Issue issueDb = modelMapper.map(issueDto, Issue.class);
 		issueDb = issueRepository.save(issueDb);
 		return modelMapper.map(issueDb, IssueDto.class);
@@ -56,6 +54,26 @@ public class IssueService implements IIssueService {
 		Issue issueDb = modelMapper.map(issueDto, Issue.class);		
 		issueRepository.delete(issueDb);
 		return true;
+	}
+	
+	public Boolean deleteById(Long id) {		
+		issueRepository.deleteById(id);
+		return true;
+	}
+
+	@Override
+	public IssueDto update(Long id, IssueDto issue) {
+		Issue issueDb = issueRepository.getById(id);
+		if(issueDb==null)
+			throw new IllegalArgumentException("Issue Does Not Exists ID:"+id);
+		
+		
+		issueDb.setDescription(issue.getDescription());
+		issueDb.setDetails(issue.getDetails());
+		
+		issueRepository.save(issueDb);
+		
+		return modelMapper.map(issueDb, IssueDto.class);
 	}
 
 }

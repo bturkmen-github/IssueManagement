@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bturkmen.IssueManagement.dto.ProjectDto;
 import com.bturkmen.IssueManagement.service.impl.ProjectService;
+import com.bturkmen.IssueManagement.util.ApiPaths;
 
 @RestController
-@RequestMapping("/api/project")
+@RequestMapping(ApiPaths.ProjectCtrl.CTRL)
 public class ProjectController {
 	
 	private final ProjectService projectService;
